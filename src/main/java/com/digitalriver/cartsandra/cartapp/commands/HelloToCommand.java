@@ -30,10 +30,14 @@ public class HelloToCommand extends HystrixCommand<String> {
             if (name.equals("Alice")) {
                 Thread.sleep(1000L + random.nextInt(300));
             } else {
-
-                Thread.sleep(random.nextInt(100));
+                if (name.equals("Bob")) {
+                    Thread.sleep(500 + random.nextInt(100));
+                    throw new RuntimeException("Bob doesn't want to talk to you");
+                } else {
+                    Thread.sleep(random.nextInt(100));
+                }
             }
-            return "Hello " + name + " from Netflix OSS";
+            return "Hello " + name + ", from Netflix OSS";
         }
     }
 }
